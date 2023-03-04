@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Data Table</title>
+     <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css"> -->
+     <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.2/datatables.min.css"/>
+     <style>
+          *{ margin: 0; box-sizing: border-box;}
+          body{ font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}
+          .container{ max-width: 1200px; margin: auto; padding: 0 1rem;}
+          .table{ border: 1px solid #999; border-collapse: collapse; padding:0.5rem; width: 100%; }
+          .table td, .table th{ border: 1px solid #999; padding: 0.5rem;} 
+     </style>
+</head>
+<body>
+     <div class="container">
+          <h1>Data Table</h1>
+          <label>Search : <input type="search" required></label>
+          <table class="table" data-page-length='15'>
+               <thead>
+                    <tr>
+                         <th>S No</th>
+                         <th>Name</th>
+                         <th>Brand</th>
+                         <th>Engine</th>
+                         <th>Power</th>
+                         <th>Torque</th>
+                         <th>Power to Weight</th>
+                         <th>Torque to Weight</th>
+                         <th>zerotohundred</th>
+                    </tr>
+               </thead>
+               <tbody></tbody>
+          </table>
+     </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>    
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.2/datatables.min.js"></script>
+<script>
+$(function(){
+     $.ajax({
+          url: "http://127.0.0.1:80/check",
+          data: {},
+          success: function( result ) {
+               result.forEach((e,i) => {
+                    console.log(e);
+                    //if(e.power>=100){
+                         $(".table tbody").append(`<tr><td>${++i}</td><td>${e.name}</td><td>${e.brand}</td><td>${e.engine}</td><td>${e.power}</td><td>${e.torque}</td><td>${e.ptow}</td><td>${e.ttow}</td><td>${e.zerotohundred}</td></tr>`);
+                    //}
+
+
+               });
+               $(".table").DataTable({
+                    // "search": {
+                    //      //"search": "maruti"
+                    //      //"search":"100"
+                         
+                    // },
+                    dom: 'Qlfrtip',
+                    searchBuilder: {
+                    conditions: {
+                         num: {
+                            '>=':{conditionName:{'power':'100'}}  
+                         }
+                    }
+                    }
+                    
+               });
+          }
+          });         
+
+});
+</script>  
+</body>
+</html>

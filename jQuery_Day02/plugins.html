@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Plugins</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/blitzer/jquery-ui.min.css" integrity="sha512-ibBo2Ns078qm7xZNTPbIrg5XP4pZ+Aujfmz0QFsce2f4LYpCnF1Esy6FkIRFBgXC9cY30XiS7Ui9+RpN8K7ICg==" crossorigin="anonymous" referrerpolicy="no-referrer">   
+<style>
+  *{ margin: 0; box-sizing: border-box; }
+  
+  body{ font-family: system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;  
+  }
+  button{ cursor: pointer;
+  }
+
+  [disabled]{ cursor:not-allowed;}
+
+  .container{
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 10px;
+  }
+
+  #draggable { width: 100px; height: 100px; padding: 0.5em; display: inline-block;  margin: 10px 10px 10px 0; }
+  #droppable { width: 150px; height: 150px; padding: 0.5em;  display: inline-block; margin: 10px; }
+ 
+
+</style>
+
+
+</head>
+<body>
+    <div class="container">
+        <h1>jQuery Plugins</h1>
+        <label>Cities: <input type="text" id="city"> </label>
+        <label>Date: <input type="text" id="date"> </label>
+
+        <div id="draggable" class="ui-widget-content">
+          <p>Drag me to my target</p>
+        </div>
+         
+        <div id="droppable" class="ui-widget-header">
+          <p>Drop here</p>
+        </div>
+    </div>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $(function(){
+
+    const cities=["delhi","noida","faridabad","gaziabad","gurugram"];
+
+    $( "#draggable" ).draggable();
+    $( "#droppable" ).droppable({
+      drop: function( event, ui ) {
+        $( this )
+          .addClass( "ui-state-highlight" )
+          .find( "p" )
+            .html( "Dropped!" );
+      }
+    });
+    $( "#city" ).autocomplete({source: cities});
+    $( "#date" ).datepicker();
+
+  });
+</script>   
+</body>
+</html>
